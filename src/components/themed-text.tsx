@@ -1,22 +1,12 @@
 import { Text, type TextProps } from 'react-native';
 
 import { ThemeColor } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 export type ThemedTextProps = TextProps & {
   type?: 'default' | 'title' | 'small' | 'smallBold' | 'subtitle' | 'link' | 'linkPrimary' | 'code';
   themeColor?: ThemeColor;
   className?: string;
-};
-
-const themeClasses: Record<ThemeColor, string> = {
-  background: 'text-black dark:text-white',
-  backgroundElement: 'text-black dark:text-white',
-  backgroundSelected: 'text-black dark:text-white',
-  text: 'text-black dark:text-white',
-  textSecondary: 'text-[#60646C] dark:text-[#B0B4BA]',
-  accent: 'text-sky-500',
-  tabInactive: 'text-[#A89E93] dark:text-[#8C857E]',
-  border: 'text-black dark:text-white',
 };
 
 const variantClasses: Record<NonNullable<ThemedTextProps['type']>, string> = {
@@ -30,10 +20,19 @@ const variantClasses: Record<NonNullable<ThemedTextProps['type']>, string> = {
   code: 'font-mono text-xs',
 };
 
-export function ThemedText({ className, type = 'default', themeColor = 'text', ...rest }: ThemedTextProps) {
+export function ThemedText({
+  className,
+  style,
+  type = 'default',
+  themeColor = 'text',
+  ...rest
+}: ThemedTextProps) {
+  const theme = useTheme();
+
   return (
     <Text
-      className={[themeClasses[themeColor], variantClasses[type], className].filter(Boolean).join(' ')}
+      className={[variantClasses[type], className].filter(Boolean).join(' ')}
+      style={[{ color: theme[themeColor] }, style]}
       {...rest}
     />
   );

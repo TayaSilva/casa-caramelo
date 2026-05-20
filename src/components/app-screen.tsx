@@ -15,7 +15,7 @@ export function AppScreen({ title, description, children }: AppScreenProps) {
     <ThemedView className="flex-1">
       <SafeAreaView className="flex-1">
         <ScrollView
-          contentContainerClassName="justify-center px-4 py-8"
+          contentContainerClassName="justify-center px-4 py-8 pt-20"
           showsVerticalScrollIndicator={false}>
           <View className="w-full max-w-[800px] self-center gap-6">
             <View className="gap-2">
